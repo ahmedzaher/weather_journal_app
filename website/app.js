@@ -5,9 +5,9 @@ const OPEN_WEATHER_MAP_API_KEY = 'c25c31ded24738075dacfb7c5e7a1d0f';
 
 const renderRecentTemp = (temp) => {
 
-    document.getElementById("date").textContent = temp['date'];
-    document.getElementById("temp").textContent = temp['temp'];
-    document.getElementById("content").textContent = temp['content'];
+    document.getElementById("date").innerHTML = temp['date'];
+    document.getElementById("temp").innerHTML = temp['temp'];
+    document.getElementById("content").innerHTML = temp['content'];
 }
 
 /* Function called by event listener */
@@ -33,8 +33,9 @@ const generateTempHandler = async () => {
     const postResponse = await postData("/temp", data);
 
     const recentTemp = await getProjectData();
-
+console.log(recentTemp);
     renderRecentTemp(recentTemp);
+
 
 }
 
