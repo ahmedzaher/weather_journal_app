@@ -19,8 +19,8 @@ app.use(cors());
 app.use(express.static('website'));
 
 const getProjectData = (req, res) => res.send(projectData);
-const addTemp = (temp) => {
-    projectData.push(temp);
+const addTemp = (req) => {
+    projectData = {...req.body};
 }
 
 app.get('/all', getProjectData);

@@ -2,8 +2,13 @@
 // Personal API Key for OpenWeatherMap API
 const OPEN_WEATHER_MAP_API_KEY = 'c25c31ded24738075dacfb7c5e7a1d0f';
 
-// Event listener to add function to existing HTML DOM element
-document.getElementById("generate").addEventListener('click', generateTempHandler);
+
+const renderRecentTemp = (temp) => {
+
+    document.getElementById("date").textContent = temp['date'];
+    document.getElementById("temp").textContent = temp['temp'];
+    document.getElementById("content").textContent = temp['content'];
+}
 
 /* Function called by event listener */
 const generateTempHandler = async () => {
@@ -25,13 +30,16 @@ const generateTempHandler = async () => {
         content: document.getElementById("feelings").value
     }
 
-    await postData("temp");
+    const postResponse = await postData("/temp", data);
 
-    const recentTemps = await getProjectData();
+    const recentTemp = await getProjectData();
 
+    renderRecentTemp(recentTemp);
 
 }
 
+// Event listener to add function to existing HTML DOM element
+document.getElementById("generate").addEventListener('click', generateTempHandler);
 
 
 const getCurrentTime = () => {
@@ -69,14 +77,3 @@ const getProjectData = async () => {
     return response.json();
 };
 
-
-const renderRecentTemps = (temps) => {
-    if(!temps || temps.length == 0) {
-        return;
-    }
-    const recentTemp = temps[temps.length - 1];
-    document.getElementById("date").textContent = recentTemp['date'];
-    document.getElementById("temp").textContent = recentTemp['temp'];
-    document.getElementById("content").textContent = recentTemp['content'];
-
-}
