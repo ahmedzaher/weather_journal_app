@@ -19,7 +19,14 @@ app.use(cors());
 app.use(express.static('website'));
 
 const getProjectData = (req, res) => res.send(projectData);
+const addTemp = (temp) => {
+    projectData.push(temp);
+}
+
 app.get('/all', getProjectData);
+app.post('/temp', addTemp)
+
+
 
 
 // Setup Server
